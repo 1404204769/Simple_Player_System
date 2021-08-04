@@ -19,11 +19,7 @@ bool CUserMgr::AddUser(Row& row) {
 		DeleteUser(strAccount);
 		//cout << "上一个用户已被强制下线" << endl;
 	}
-	string strTime(row["create_time"]);
-	string strName(row["name"]);
-	long long int i64Exp = row["exp"];
-	unsigned int unLev = row["lev"];
-	CUser *pUser=new CUser(i64Id,strAccount,strTime,strName, i64Exp, unLev);
+	CUser *pUser=new CUser(row);
 	if (!pUser) {
 		cout << "用户登入失败" << endl;
 		return false;
