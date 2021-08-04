@@ -8,7 +8,7 @@ class CUserLevelSystem
 public:
 	CUserLevelSystem();
 	~CUserLevelSystem();
-	bool LevelUp(long long int _i64Id, unsigned int _unLev);/*传入ID和要升的等级，直接在m_UserMgr的map内调用set函数修改数据*/
+	bool LevelUp(const long long int _i64Id,const  unsigned int _unLev);/*传入ID和要升的等级，直接在m_UserMgr的map内调用set函数修改数据*/
 private:
 };
 

@@ -16,35 +16,36 @@ CUser::CUser(const long long int _i64Id, const string& _strAccount, const string
 	cout << "Ôö¼ÓÁË(ID:"<<m_i64Id<<",Account:"<<m_strAccount<<",CreateTime:"<<m_strCreateTime<<",Name:"<<m_strName<<",Exp:"<<m_i64Exp<<",Lev:"<<m_i64Exp<<")" << endl;
 }
 
-std::string& CUser::getAccount() {
+const std::string& CUser::getAccount() {
 	return m_strAccount;
 }
 
-std::string& CUser::getCreateTime() {
+const std::string& CUser::getCreateTime() {
 	return m_strCreateTime;
 }
 
-std::string& CUser::getName() {
+const std::string& CUser::getName() {
 	return m_strName;
+}
+
+const long long int CUser::getId() {
+	return m_i64Id;
+}
+
+const long long int CUser::getExp() {
+	return m_i64Exp;
+}
+
+const unsigned int CUser::getLev() {
+	return m_unLev;
+}
+
+void CUser::setLev(const unsigned int _unLev) {
+	m_unLev = _unLev;
 }
 void CUser::setName(const string& _strName) {
 	m_strName = _strName;
 }
-
-long long int CUser::getId() {
-	return m_i64Id;
-}
-
-long long int CUser::getExp() {
-	return m_i64Exp;
-}
 void CUser::setExp(const long long int _i64Exp) {
 	m_i64Exp = _i64Exp;
-}
-
-unsigned int CUser::getLev() {
-	return m_unLev;
-}
-void CUser::setLev(const unsigned int _unLev) {
-	m_unLev = _unLev;
 }

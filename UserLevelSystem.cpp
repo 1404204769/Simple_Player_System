@@ -7,14 +7,14 @@ CUserLevelSystem::CUserLevelSystem() {
 CUserLevelSystem::~CUserLevelSystem() {
 	cout << "调用了CUserLevelSystem的析构函数" << endl;
 }
-bool CUserLevelSystem::LevelUp(long long int _i64Id, unsigned int _unLev) {
+bool CUserLevelSystem::LevelUp(const long long int _i64Id,const  unsigned int _unLev) {
 	/*传入ID和要升的等级，直接在m_UserMgr的map内调用set函数修改数据*/
-	CUser* user = g_UserMgr.getUser(_i64Id);
-	if (!user) {
+	CUser* pUser = g_UserMgr.getUser(_i64Id);
+	if (!pUser) {
 		cout << "此用户不在线" << endl;
 		return false;
 	}
-	unsigned int _unNewLev = user->getLev()+_unLev;
-	user->setLev(_unNewLev);
+	unsigned int unNewLev = pUser->getLev()+_unLev;
+	pUser->setLev(unNewLev);
 	return true;
 }

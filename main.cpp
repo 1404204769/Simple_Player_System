@@ -21,14 +21,14 @@ int Choice() {
 	cout << "2.升级" << endl;
 	cout << "3.登出" << endl;
 	int nChoice = 0;
-	string _strAccount("");
+	string strAccount("");
 	cin >> nChoice;
 	switch (nChoice)
 	{
 	case 1:
 		cout << "请输入要登入的账号" << endl;
-		cin >> _strAccount;
-		if (!g_LoginSystem.Login(_strAccount)) {
+		cin >> strAccount;
+		if (!g_LoginSystem.Login(strAccount)) {
 			cout << "登入失败，请重新登入" << endl;
 			return nChoice;
 		}
@@ -36,26 +36,26 @@ int Choice() {
 		break;
 	case 2: {
 		cout << "请输入要升级的账号ID以及要升的等级" << endl;
-		long long int _i64Id = 0;
-		unsigned int _unLev = 0;
-		cin >> _i64Id;
-		cin >> _unLev;
-		if (!g_UserLevelSystem.LevelUp(_i64Id,_unLev)) {
+		long long int i64Id = 0;
+		unsigned int unLev = 0;
+		cin >> i64Id;
+		cin >> unLev;
+		if (!g_UserLevelSystem.LevelUp(i64Id,unLev)) {
 			cout << "升级失败，请重试" << endl;
 			return nChoice;
 		}
 		cout << "升级成功" << endl;
-		CUser *user=g_UserMgr.getUser(_i64Id);
-		if (!user) {
+		CUser *pUser=g_UserMgr.getUser(i64Id);
+		if (!pUser) {
 			cout << "发生错误,未找到升级后的账户" << endl;
 			return nChoice;
 		}
-		cout << "升级后属性为了(ID:" << user->getId() << ",Account:" << user->getAccount() << ",CreateTime:" << user->getCreateTime() << ",Name:" << user->getName() << ",Exp:" << user->getExp() << ",Lev:" << user->getLev() << ")" << endl;
+		cout << "升级后属性为了(ID:" << pUser->getId() << ",Account:" << pUser->getAccount() << ",CreateTime:" << pUser->getCreateTime() << ",Name:" << pUser->getName() << ",Exp:" << pUser->getExp() << ",Lev:" << pUser->getLev() << ")" << endl;
 	}break;
 	case 3: {
 		cout << "请输入要登出的账号" << endl;
-		cin >> _strAccount;
-		if (!g_LoginSystem.Logout(_strAccount)) {
+		cin >> strAccount;
+		if (!g_LoginSystem.Logout(strAccount)) {
 			cout << "登出失败，请重试" << endl;
 			return nChoice;
 		}cout << "登出成功，欢迎下次再来！" << endl;

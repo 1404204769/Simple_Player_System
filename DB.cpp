@@ -8,6 +8,7 @@ CDB::CDB() :m_Conn(true), m_strDB(""), m_strServer(""), m_strUser(""), m_strPass
 CDB::~CDB() 
 { 
 	cout << "调用了CDB的析构函数" << endl; 
+	m_Conn.~Connection();
 }
 bool CDB::InitConnect(const string& strDB, const string& strServer, const string& strUser, const string& strPassword, const int nPort) {
 	try {
