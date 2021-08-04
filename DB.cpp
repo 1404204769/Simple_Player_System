@@ -9,7 +9,7 @@ CDB::~CDB()
 { 
 	cout << "调用了CDB的析构函数" << endl; 
 }
-bool CDB::InitConnect(const string& strDB, const string& strServer, const string& strUser, const string& strPassword, const int& nPort) {
+bool CDB::InitConnect(const string& strDB, const string& strServer, const string& strUser, const string& strPassword, const int nPort) {
 	try {
 		/*建立数据库连接*/
 		m_strDB = strDB;
@@ -84,7 +84,7 @@ bool CDB::Search(UseQueryResult& res, const string& _strColumn, const string& _s
 	}
 	return true;      
 }
-bool CDB::Insert(string _strAccount, string _strName) {
+bool CDB::Insert(const string& _strAccount, const string& _strName) {
 	/*插入一条新的值到数据库中*/
 	try {
 		Query query = m_Conn.query();
@@ -123,7 +123,7 @@ bool CDB::Insert(string _strAccount, string _strName) {
 	}
 	return true;
 }
-bool CDB::Update(long long int _i64Id, string _strAccount, string _strName, long long int _i64Exp, unsigned int _unLev) {
+bool CDB::Update(const long long int _i64Id, const string& _strAccount, const string& _strName, const long long int _i64Exp,const  unsigned int _unLev) {
 	/*将数据库中对应的数据修改*/
 	try {
 		Query query = m_Conn.query();
