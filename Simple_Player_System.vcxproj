@@ -159,6 +159,9 @@
     <ClCompile Include="UserLevelSystem.cpp" />
     <ClCompile Include="UserMgr.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Database.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
