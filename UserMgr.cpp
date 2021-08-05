@@ -12,27 +12,55 @@ CUserMgr::~CUserMgr() {
 }
 bool CUserMgr::AddUser(Row& row) {
 	/*将准备新增的用户的数据保存在Map中*/
-	if (!row)return false;
-	string strAccount(row["account"]);
-	long long int i64Id = row["id"];
-	if (getId(strAccount) || getUser(i64Id)) {
-		DeleteUser(strAccount);
-		//cout << "上一个用户已被强制下线" << endl;
+	try {
+		if (!row)return false;
+		string strAccount(row["account"]);
+		long long int i64Id = row["id"];
+		if (getId(strAccount) || getUser(i64Id)) {
+			DeleteUser(strAccount);
+			//cout << "上一个用户已被强制下线" << endl;
+		}
+		CUser *pUser=new CUser(row);
+		if (!pUser) {
+			cout << "用户登入失败" << endl;
+			return false;
+		}
+		return AddToMap(pUser);
 	}
-	CUser *pUser=new CUser(row);
-	if (!pUser) {
-		cout << "用户登入失败" << endl;
+	catch (const BadQuery& er) {
+		// Handle any query errors
+		cerr << "Query error: " << er.what() << endl;
 		return false;
 	}
-	return AddToMap(pUser);
+	catch (const BadConversion& er) {
+		// Handle bad conversions
+		cerr << "Conversion error: " << er.what() << endl <<
+			"\tretrieved data size: " << er.retrieved <<
+			", actual size: " << er.actual_size << endl;
+		return false;
+	}
+	catch (const Exception& er) {
+		// Catch-all for any other MySQL++ exceptions
+		cerr << "Error: " << er.what() << endl;
+		return false;
+	}
 
 }
 bool CUserMgr::AddToMap(CUser* _pUser) {
+	if (!_pUser)return false;
 	m_mapByAccount[_pUser->getAccount()]= _pUser->getId();
 	m_mapById[_pUser->getId()]= _pUser;
 	if (m_mapByAccount.count(_pUser->getAccount()) == 0 || m_mapById.count(_pUser->getId())==0) {
 		cout << "用户登入失败" << endl;
 		DeleteUser(_pUser->getAccount());
+		return false;
+	}
+	return true;
+}
+bool CUserMgr::Register(const string& _strAccount, const string& _strName) {
+	/*参数为account,name,调用CDB的insert接口保存在数据库内*/
+	if (!g_DB.Insert(_strAccount, _strName)) {
+		cout << "用户注册成功" << endl;
 		return false;
 	}
 	return true;

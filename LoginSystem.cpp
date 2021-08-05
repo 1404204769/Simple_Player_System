@@ -17,7 +17,7 @@ bool CLoginSystem::Login(const string& _strAccount) {
 		cout << "请输入用户名(不能包含空格)" << endl;
 		string strName;
 		cin >> strName;
-		if (!Register(_strAccount, strName)) {
+		if (!g_UserMgr.Register(_strAccount, strName)) {
 			cout << "注册失败" << endl;
 			return false;
 		}
@@ -39,14 +39,7 @@ bool CLoginSystem::Login(const string& _strAccount) {
 	cout << "登入成功" << endl;
 	return true;
 }
-bool CLoginSystem::Register(const string& _strAccount, const string& _strName) {
-	/*参数为account,name,调用CDB的insert接口保存在数据库内*/
-	if (!g_DB.Insert(_strAccount, _strName)) {
-		cout << "用户注册成功" << endl;
-		return false;
-	}
-	return true;
-}
+
 bool CLoginSystem::Logout(const string& _strAccount) {
 	/*删除map中的指定对象*/
 	if (!g_UserMgr.DeleteUser(_strAccount)) {

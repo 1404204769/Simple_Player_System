@@ -12,6 +12,7 @@ public://内部的逻辑函数
 	CUserMgr();
 	~CUserMgr();
 	bool AddUser(mysqlpp::Row& row);/*新增登入用户数据*/
+	bool Register(const std::string& _strAccount, const std::string& _strName);/*参数为account,调用CUserMgr的SearchInMap&SearchInDB功能，若不存在则调用数据库接口查询数据，并将其保存在map中*/
 	bool DeleteUser(const std::string& _strAccount);/*根据Account删除对应的User*/ 
 	CUser* getUser(const long long int _i64Id);/*从map里面查询，返回查询对象指针*/ 
 	long long int getId(const std::string& _strAccount);/*根据账户返回ID*//*如果返回一个负数说明该用户不在线*/
